@@ -9,7 +9,7 @@
 
 /* Optional: embed custom fonts here with `@import`          */
 /* This must remain at the top of this file.                 */
-@import url('https://fonts.googleapis.com/css2?family=Arial');
+@import url('https://fonts.googleapis.com/css2?family=Lato');
 
 html {
   /*-- Main font sizes --*/
@@ -19,16 +19,22 @@ html {
   --aside-size:      12px;
   --fig-cap-size:    13px;
   /*-- Main font colors --*/
-  --title-color:     #003891;
-  --header-color:    rgba(0, 0, 0, 0.8);
+  --title-color:     #555555;
+  --header-color:    #bc7777;
   --body-color:      rgba(0, 0, 0, 0.8);
-  --aside-color:     rgba(0, 0, 0, 0.6);
+  --aside-color:     rgba(255, 255, 255, 0.8);
   --fig-cap-color:   rgba(0, 0, 0, 0.6);
   /*-- Specify custom fonts ~~~ must be imported above   --*/
-  --heading-font:    "Arial", monospace;
-  --mono-font:       "Arial", monospace;
-  --body-font:       "Arial", monospace;
-  --navbar-font:     "Arial", monospace;
+  --heading-font:    "Lato", monospace;
+  --mono-font:       "Lato", monospace;
+  --body-font:       "Lato", monospace;
+  --navbar-font:     "Lato", monospace;
+}
+
+.distill-site-nav {
+  color: rgba(255, 255, 255, 0.8);
+    font-size: 15px;
+  font-weight: 300;
 }
 
 /* More properties ... */

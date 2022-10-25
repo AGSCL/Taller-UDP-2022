@@ -53,29 +53,11 @@ vignettes/*.pdf
 *.knit.md
 # Shiny token, see https://shiny.rstudio.com/articles/shinyapps.html
 rsconnect/
->>>>>>> 90dc9833b7a051530628d488b50a759bfbcc08c4
 #dejar fuera
-_CONS_C1_df_dup.csv
-_CONS_C1_df_dup
-_CONS_C1_df_dup_ENE_2020.csv
-'~$reunion con Maureen.xlsx'
-'reunion con Maureen.xlsx'
 /*.Rdata/
 .RData
-3.RData
-3.Rdata
-2.RData
-CONS_C1_df_dup_ENE_2020.csv
-CONS_TOP_df_dup_ENE_2020.csv
 # exclude everything IN CHECKPOINT
 dedup/*
-_matches_feb_2020
-_overlaps_feb_2020
-_matches_feb_2020
-CONS_C1_df_dup_FEB_2020.csv
-_CONS_C1_df_match70_2020_02_20.dta
-CONS_C1_df_dup_FEB_2020.dta
-CONS_C1_df_dup_FEB_2020.*
 _outputs/*
 *.RData
 *cache*

@@ -26,11 +26,9 @@ output:
 ```{r setup_theme0, include = FALSE}
 rm(list=ls());gc()
 if(!grepl("4.1.2",R.version.string)){stop("Different version (must be 4.1.2)")}
-#, 'libs/my-theme.css'
-#load(paste0(sub("$\\/","",sub("2019 \\(github\\)/SUD_CL","2022 \\(github\\)",here::here())),"/11_pres.RData"))
-options(servr.daemon = TRUE)
-#rm(list=setdiff(ls(), c("CONS_C1_df_dup_SEP_2020", "Base_fiscalia_v5", "db_ser_2022", "rut_enc_saf_jun22")))
 
+
+options(servr.daemon = TRUE)
 ```
 
 ```{r setup, include = FALSE}
@@ -57,6 +55,7 @@ error=function(error_message) {
   icons::download_fontawesome()  
 })
 }
+
 vec_col<-c("#660600","#6F3930","#745248","#786B60","#E6E6E6","#738FBC","#003891","#3C5279","#786B60","#B48448","#EF9D2F","#D99155","#E3D1C2","#E0BC9E","#ABB0BF","#835F69","#5A0D13")
 plot_prueba<-barplot(1:length(vec_col), col=vec_col)
 
