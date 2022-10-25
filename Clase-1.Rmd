@@ -1,0 +1,431 @@
+---
+title: "Clase 1"
+subtitle: ""
+author: "Andrés González"
+date:  "`r withr::with_locale(new =c('LC_TIME' = 'es_ES'), code =format(Sys.time(),'%B %d, %Y'))`"
+output:
+  xaringan::moon_reader:
+    includes:
+      after_body: ['libs/collapseoutput.js','libs/hideOutput.js', 'libs/zoom.html', 'libs/manualcollapseinput.html']
+    transition: slide
+    lib_dir: libs
+    css: ['xaringan-themer.css', 'animate.min.css', 'ninjutsu']
+    self_contained: true # if true, fonts will be stored locally
+    seal: false # show a title slide with YAML information
+    nature:
+      countdown: 90000 #60 segundos *2
+      highlightStyle: github
+      highlightLines: true # {{}} o * los pondrá como muy importantes  para destacar: # <<
+      slideNumberFormat: '%current%'
+      countIncrementalSlides: false
+      ratio: '16:9' # alternatives '16:9' or '4:3' or others e.g. 13:9
+      navigation:
+        scroll: false # disable slide transitions by scrolling
+---
+
+```{r setup_theme0, include = FALSE}
+rm(list=ls());gc()
+if(!grepl("4.1.2",R.version.string)){stop("Different version (must be 4.1.2)")}
+#, 'libs/my-theme.css'
+#load(paste0(sub("$\\/","",sub("2019 \\(github\\)/SUD_CL","2022 \\(github\\)",here::here())),"/11_pres.RData"))
+options(servr.daemon = TRUE)
+#rm(list=setdiff(ls(), c("CONS_C1_df_dup_SEP_2020", "Base_fiscalia_v5", "db_ser_2022", "rut_enc_saf_jun22")))
+
+```
+
+```{r setup, include = FALSE}
+local({r <- getOption("repos")
+       r["CRAN"] <- "https://cran.dcc.uchile.cl/"
+       options(repos=r)
+})
+
+if(!require(pacman)){install.packages("pacman")}
+pacman::p_load(devtools, here, showtext, ggpattern, RefManageR, pagedown, magick, bibtex, DiagrammeR, xaringan, xaringanExtra, xaringanthemer, fontawesome, widgetframe, datapasta, tidyverse, psych, cowplot, coxphw, future, timereg, flexsurv, pdftools, mstate, showtext, compareGroups, chilemapas, choroplethrAdmin1,  choroplethr, choroplethrMaps, ggiraph, sf,distill,
+               widgetframe, install= T)
+
+if(!require(xaringanBuilder)){devtools::install_github("jhelvy/xaringanBuilder",upgrade = "never")}
+if(!require(icons)){remotes::install_github("mitchelloharawild/icons",upgrade = "never")}
+
+test_fontawesome<- function(x="github"){
+tryCatch({
+  invisible(fontawesome::fa(name = x))
+  return(message("fontawesome installed"))
+},
+# ... but if an error occurs, tell me what happened: 
+error=function(error_message) {
+  message("Installing fontawesome")
+  icons::download_fontawesome()  
+})
+}
+vec_col<-c("#660600","#6F3930","#745248","#786B60","#E6E6E6","#738FBC","#003891","#3C5279","#786B60","#B48448","#EF9D2F","#D99155","#E3D1C2","#E0BC9E","#ABB0BF","#835F69","#5A0D13")
+plot_prueba<-barplot(1:length(vec_col), col=vec_col)
+
+#https://coolors.co/21177a-fe4a17-788aa3-45503b
+style_duo( 
+  primary_color = "#FFFFFF",  #555555 gris oscuro
+  secondary_color = "#DD3333",#"#FF5252"))) 
+  text_color = "#333333", #bc7777
+  text_bold_color = "#FF5252",
+  #base_color = '#bc7777',
+  background_position = 'center',
+  header_font_google = google_font("Lato"),#Josefin Sans
+  text_font_google   = google_font("Lato", "400", "400i"),
+  code_font_google   = google_font("Lato"),
+  code_font_size = '53%', #sirve
+  padding = "0.4em 2.4em 0.4em 2.4em",
+  extra_fonts = list(google_font("Arial Narrow")),
+ # title_slide_background_image = "./_figs/bg_portada.svg",
+#  title_slide_background_size = "cover",
+ # background_image = "./_figs/bg.svg",
+  background_size = "cover",
+  extra_css =
+  list(
+  ".remark-slide-scaler" = list("overflow-y" = "auto"), # para no tener limites de extensión
+ # ".remark-slide-number" = list("display" = "none"), #oculta el reloj también
+ # "pre"= list("line-height"= "0.2em"),
+  ".gray"   = list(color = "#aaaaaa"),
+  ".black"   = list(color = "#bc7777"),
+  ".darkgreen"   = list(color = "#45503B"),
+  ".darkred"   = list(color = "#591F0A"),
+  ".small" = list("font-size" = "90%"),
+  ".pull_c" = list("float" = "center","width" = "30%", "height" = "50%", "padding-left" = "40%"),
+  ".pull_c_title" = list("height" = "90%"),
+  ".pull_l_70" = list("float"= "left","width"= "72%", "font-size"= "90%"),
+  ".pull_r_30" = list("float"= "right","width"= "23%", "font-size"= "90%"),
+  ".pull_left"  = list("float"= "left","width"= "47%", "height"= "100%", "padding-right"= "2%"),
+  ".pull_right" = list("float"= "right","width"= "47%", "height"= "100%", "padding-left"= "2%"),
+  ".small_left"  = list("float"= "left", "width"= "47%", "height"= "50%", "padding-right"= "2%"),
+  ".small_right" = list("float"= "right","width"= "47%", "height"= "50%", "padding-left"= "2%"),
+  ".left_code" = list("float"="left","width"="47%","height"="100%","padding-right"="2%",    "font"="Roboto"),
+  ".code_out"  = list("float"="right","width"="47%","height"="100%","padding-left"="2%",    "font"="Roboto"),
+  ".text_180" = list("font-size" = "180%"),
+  ".text_170" = list("font-size" = "170%"),
+  ".text_160" = list("font-size" = "160%"),    
+  ".text_150" = list("font-size" = "150%"),
+  ".text_140" = list("font-size" = "140%"),  
+  ".text_130" = list("font-size" = "130%"),
+  ".text_120" = list("font-size" = "120%"),
+  ".text_110" = list("font-size" = "110%"),
+  ".text_110" = list("font-size" = "110%"),
+  ".text_100" = list("font-size" = "100%"),
+  ".code_10" = list("code-inline-font-size"= "60%",
+                    "overflow-y" = "scroll !important",
+                    "overflow-x" = "scroll !important",
+                    "max-height" = "5vh !important",
+                    "line-height"= "0.75em"),
+   ".code_10_pre" = list("code-inline-font-size"= "60%",
+                    "overflow-y" = "scroll !important",
+                    "overflow-x" = "scroll !important",
+                    "max-height" = "15vh !important",
+                    "line-height"= "0.75em",
+                    "min-height"="0.5em"
+                    ),
+  ".code_15" = list("code-inline-font-size"= "15%",
+                    "overflow-y" = "scroll !important",
+                    "overflow-x" = "scroll !important",
+                    "max-height" = "10vh !important"),
+  ".text_90" = list("font-size" = "90%"),
+  ".text_80" = list("font-size" = "80%"),
+  ".text_70" = list("font-size" = "70%"),
+  ".text_65" = list("font-size" = "65%"),
+  ".text_60" = list("font-size" = "60%"),
+  ".text_50" = list("font-size" = "50%"),
+  ".text_40" = list("font-size" = "40%"),
+  ".text_30" = list("font-size" = "30%"),
+  ".text_20" = list("font-size" = "20%"),
+  ".line_space_15" = list("line-height" = "1.5em;"),
+  ".line_space_13" = list("line-height" = "1.3em;"),
+  ".line_space_11" = list("line-height" = "1.1em;"),
+  ".line_space_15" = list("line-height" = "1.5em;"),
+  ".line_space_09" = list("line-height" = "0.9em;"),
+  ".line_space_07" = list("line-height" = "0.7em;"),
+  ".line_space_05" = list("line-height" = "0.5em;"),
+  ".largest" =  list("font-size" = "2.488em;"),
+  ".larger" =  list("font-size" = "2.074em;"),
+  ".large" =  list("font-size" = "1.44em;"),
+  ".small" =  list("font-size" = "0.833em;"),
+  ".smaller" =  list("font-size" = "0.694em;"),
+  ".smallest" =  list("font-size" = "0.579em;"),
+  ".limity150" = list("max-height" = "150px;",
+                     "overflow-y" = "auto;"
+      ),
+    ".tiny_text" = list(
+      "font-size"= "70%"
+      ),
+    ".large_text" = list(
+      "font-size"= "150%"
+      ),
+    ".slide_blue" = list(
+      "background-color" = "#FEDA3F",
+      "color" = "#3C3C3B"
+      ),
+  ".center_image" = list(
+    margin  = "0",
+    position = "absolute",
+    top      = "50%",
+    left     = "50%",
+    '-ms-transform' = "translate(-50%, -50%)",
+    transform = "translate(-50%, -50%)"
+    ),
+    ".center_down_image" = list(
+    margin  = "0",
+    position = "absolute",
+    top      = "90%",
+    left     = "50%",
+    '-ms-transform' = "translate(-50%, -50%)",
+    transform = "translate(-50%, -50%)"
+    ),
+    "slides > slide" = list(
+    "overflow-x"  = "auto !important",
+    "overflow-y" = "auto !important"
+    ),
+ #   "pre" = list(
+#    "white-space"  = "pre !important",
+#    "overflow-y" = "scroll !important",
+#    "max-height" = "40vh !important",
+#    "font-size" = "0.8em"
+#    ),
+    ".superbigimage" = list(
+    "white-space"  = "nowrap",
+    "overflow-y" = "scroll"
+    )
+  )
+)
+
+options(htmltools.preserve.raw = FALSE)
+
+
+#knitr::opts_chunk$set(comment = NA) # lo saqué pa probar por si
+knitr::opts_chunk$set(dpi=720)
+#options(htmltools.preserve.raw = FALSE)#A recent update to rmarkdown (in version 2.6) changed how HTML widgets are included in the output file to use pandoc's raw HTML blocks. Unfortunately, this feature isn't compatible with the JavaScript markdown library used by xaringan. You can disable this feature and resolve the issue with htmlwidgets in xaringan slides by setting
+#https://stackoverflow.com/questions/65766516/xaringan-presentation-not-displaying-html-widgets-even-when-knitting-provided-t/65768952#65768952
+
+
+xaringanExtra::use_progress_bar(color = "#12636B", location = "top")#, height = "550px")
+xaringanExtra::use_animate_css()
+xaringanExtra::use_scribble() #son los lapices
+xaringanExtra::use_tile_view()
+xaringanExtra::use_panelset()
+xaringanExtra::use_editable(expires = 1)
+xaringanExtra::use_fit_screen()
+
+#https://gist.github.com/gadenbuie/61b27108ceec6c7a55cd9966609128d7
+
+# padding-top: 0.4em;
+# padding-right: 2.4em;
+# padding-bottom: 0.4em;
+# padding-left: 2.4em;
+invisible("https://www.youtube.com/watch?v=M3skTMQbCD0")
+invisible("https://zane.lol/slides/adirondack/#39")
+#https://titanwolf.org/Network/Articles/Article?AID=3896fe2c-1b3b-4ebd-9906-1f9ed1675b35#gsc.tab=0
+#https://annakrystalli.me/talks/xaringan/xaringan.html#55
+#https://bookdown.org/yihui/rmarkdown/some-tips.html
+#https://arm.rbind.io/slides/xaringan.html#90
+#https://stackoverflow.com/questions/62069400/font-size-of-figure-in-xaringan-slide-too-small
+#https://irene.vrbik.ok.ubc.ca/blog/2021-07-14-xaringan-slides/
+
+#https://evamaerey.github.io/doublecrochet/
+#devtools::install_github("paulhendricks/anonymizer")
+check_code <- function(expr, available){
+  if(available){
+    eval(parse(text = expr))
+  } else {
+    expr
+  }
+}
+path2<-dirname(rstudioapi::getSourceEditorContext()$path)
+#knitr::opts_chunk$set(message = FALSE,warning = FALSE, error = FALSE)
+
+```
+
+
+```{r, load_refs, include=F, eval=T, cache=FALSE}
+library(RefManageR)
+BibOptions(check.entries = FALSE,
+           bib.style = "numeric",
+           cite.style = "numeric",
+           style = "markdown",
+           super = TRUE,
+           hyperlink = FALSE,
+           dashed = FALSE)
+warning(paste0(path2,"/libreria_generica.txt"))
+
+myBib <- ReadBib(paste0(path2,"/libreria_generica.txt"), check = FALSE)
+
+```
+
+
+class: title-slide, middle, right 
+
+<br>
+
+<br> 
+ 
+.line_space_15[ 
+## .text_80[Taller <br> de Reforzamiento]
+]
+
+<br>
+
+.line_space_11[
+    
+<br>
+
+.text_70[[Código en: `r fontawesome::fa(name = "github")`](https://github.com/AGSCL/Taller_UDP)]
+
+.text_110[Clase 1. Proyectos en R]
+
+]
+
+<!---
+- Trabajar en proyectos en R (convenciones y buenas prácticas para guardar y abrir datos, códigos, referencias, salidas de código, figuras, etc.)
+- Visualización de datos mediante ggplot (lógica de capas, propiedades de los gráficos, paquetes estadísticos complementarios ) 
+La aplicación de estos contenidos se hará mediante ejercicios de estadística descriptiva y modelos de regresión logística en R
+
+http://observatorio.ministeriodesarrollosocial.gob.cl/encuesta-social-covid19-cuarta-ronda
+--->
+
+.bg-text[
+
+
+`r withr::with_locale(new = c('LC_TIME' = 'es_ES'), code =format(Sys.time(),'%d de %B, %Y'))`
+
+
+
+.text_100[Andrés González Santa Cruz]
+
+.text_65[gonzalez.santacruz.andres@gmail.com] [`r fontawesome::fa(name = "github")`](https://github.com/AGSCL) [`r fontawesome::fa(name = "orcid", fill="green")`](https://orcid.org/0000-0002-5166-9121)
+]
+
+<br>
+  
+```{r echo=FALSE, out.width = '15%'}
+knitr::include_graphics('./_style/cropped-logotipo_fsch.png')
+```
+
+???
+*#_#_#_#_#_#_#_#_#_#_
+**NOTA**
+*#_#_#_#_#_#_#_#_#_#_
+
+- Mi nombre es andrés gonzález. Soy asistente de investigación del proyecto que lidera Alvaro Castillo
+- En esta instancia haré un resumen de una idea de investigación que dirige mi compañera Mariel Mateo, que en esta instancia no se encuentra disponible debido a diferencias de horario. Se encuentra en Australia.
+
+---
+layout: true
+class: animated, fadeIn
+---
+## Antecedentes
+
+- Los trastornos por uso de sustancias (TUS) requieren un abordaje **multidimensional** $`r Cite(myBib, c("Stephen2012","RN266" ))`$.
+
+- Reducir el uso se asocia a una reducción de la actividad criminal $`r Cite(myBib, "prendergast2006")`$.
+
+- **“puerta giratoria”** $`r Cite(myBib, c("White2012","Valenzuela2012","Sullivan2019"))`$.
+
+- **Evidencia:** Países desarrollados, muestras pequeñas, modalidades específicas de tratamiento, determinados perfiles de usuarios de drogas, etc. $`r Cite(myBib, c("Krebs2008","Burdon2007", "Teesson2015" ))`$
+
+- Completar el tratamiento: Uno de los criterios más utilizados para evaluar efectividad $`r Cite(myBib, c("Eastwood2018","Brorson2013"))`$.
+
+
+.center[
+.black[
+  **¿Mismo contexto que en nuestro país /región?**
+]
+]
+
+---
+## Antecedentes (2)
+
+- Perfiles de consumo distintos  $`r Cite(myBib, c("Pacurucu2019","Reyes2013","Silva2009", "Castro2021"))`$ 
+
+- Chile, caso de interés, sistemas de monitoreo de tratamientos más antiguos en la región $`r Cite(myBib, c("Marin2018"))`$ 
+
+- Cambios en patrones de contactos con el sistema de justicia y tratamiento TUS $`r Cite(myBib, c("Castillo2015"))`$
+
+- Los tratamientos no sobran: Brecha de acceso: 1:10 usuarios tratados por TUS (13° Estudio Nacional de uso de Sustancias en Población General 2018) $`r Cite(myBib, c("nuevo1"))`$.
+
+- Chile, desafíos en materia de **evaluación efectividad de tratamientos** $`r Cite(myBib, c("nuevo2"))`$. (DIPRES-ISUC, 2020)
+
+- Completar tratamiento ~ readmisión tratamientos TUS (Chile) $`r Cite(myBib, c("Olivari2021"))`$.
+
+
+.center[
+.black[
+  **¿qué ocurre con los contactos con el sistema de justicia?**
+]
+]
+
+???
+*#_#_#_#_#_#_#_#_#_#_
+**NOTA**
+*#_#_#_#_#_#_#_#_#_#_
+
+
+---
+class: center, middle
+
+## Objetivos
+
+Examinar el impacto de tratamientos por uso de sustancias en la prevención del contacto con el sistema judicial en Chile, en el corto (3 a 6 meses), medio (1 año) y largo plazo (3 años)
+
+???
+*#_#_#_#_#_#_#_#_#_#_
+**NOTA**
+*#_#_#_#_#_#_#_#_#_#_
+- Nuestra hipótesis es que los pacientes que completan tendrán una probabilidad más baja de contactos con el sistema judicial en comparación con los que no completan, aunque este efecto disminuya a medida que el tiempo pasa.
+
+---
+class: center, middle
+
+# Gracias!
+
+<br>
+  
+<div class="centered"> Contacto: gonzalez.santacruz.andres@gmail.com </div>
+
+<br>
+
+<br>
+
+<br>
+
+```{r, echo=FALSE,  fig.align="center", out.width=300, error=T}
+
+knitr::include_graphics('./_style/cropped-logotipo_fsch.png')
+
+```
+<br>
+  
+---
+## Referencias
+  
+```{r refs1, echo=FALSE, results="asis"}
+suppressWarnings(PrintBibliography(myBib, start= 1, end= 7))
+#https://github.com/ropensci/RefManageR/blob/master/R/rmdCite.R
+```
+
+---
+## Referencias (2)
+  
+```{r refs2, echo=FALSE, results="asis"}
+suppressWarnings(PrintBibliography(myBib, start= 8, end= 15))
+#https://github.com/ropensci/RefManageR/blob/master/R/rmdCite.R
+```
+
+---
+## Referencias (3)
+  
+```{r refs3, echo=FALSE, results="asis"}
+suppressWarnings(PrintBibliography(myBib, start= 16, end= 24))
+#https://github.com/ropensci/RefManageR/blob/master/R/rmdCite.R
+```
+
+```{r exp, eval=F,echo=F, results="asis"}
+library(pagedown)
+
+#para exportar la presentación a PDF
+pagedown::chrome_print(gsub(".Rmd",".html",rstudioapi::getSourceEditorContext()$path),output="pres_2022_3.pdf")
+xaringanBuilder::build_pdf(gsub(".Rmd",".Rmd",rstudioapi::getSourceEditorContext()$path),complex_slides = TRUE,output_file="pres_2022_4.pdf")
+xaringanBuilder::build_pdf(gsub(".Rmd",".Rmd",rstudioapi::getSourceEditorContext()$path),complex_slides = TRUE,output_file="pres_2022_5.pdf")
+```

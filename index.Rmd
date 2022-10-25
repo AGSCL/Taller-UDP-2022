@@ -1,0 +1,47 @@
+---
+title: "Taller Reforzamiento de R"
+description: |
+  Taller de reforzamiento UDP 2022, Segundo Semestre
+theme: stylo.css
+site: distill::distill_article
+source_url: true
+author:
+  - name: González-Santa Cruz, A. 
+    affiliation: |
+      CISS, Universidad Mayor, Chile. Metodologías Cuantitativas de Investigación, Carrera de Data Science, Universidad Mayor, Chile; 
+      Estudiante Doctorado en Salud Pública, Universidad de Chile
+    orcid_id: 0000-0002-5166-9121
+output:
+  fidelius::html_password_protected:
+    style:
+      button_text: "Ingresar clave"
+    password: "a1b2c3"
+    preview: false
+    hint: "se aclarará en clases"
+    bundle: true
+    output_format: 
+      distill::distill_article:
+        code_folding: hide  
+        toc: true # table of content true
+        toc_depth: 5  # upto three depths of headings (specified by #, ## and ###)
+        toc_float: true
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = FALSE)
+
+# Learn more about creating websites with Distill at:
+# https://rstudio.github.io/distill/website.html
+
+# Learn more about publishing to GitHub Pages at:
+# https://rstudio.github.io/distill/publish_website.html#github-pages
+
+```
+
+# Fecha: `r format(Sys.time(), '%d %B, %Y')`
+
+Esta página está compuesta de los siguientes tópicos:
+
+- **Clase 1: Entornos en R** [aquí](Clase-1.html)
+
+- **Clase 2: Gráficos** [aquí](Clase-2.html)

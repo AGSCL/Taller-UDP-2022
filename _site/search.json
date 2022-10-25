@@ -1,0 +1,21 @@
+{
+  "articles": [
+    {
+      "path": "about.html",
+      "title": "About this site",
+      "description": "Some additional details about the website",
+      "author": [],
+      "contents": "\r\n\r\n\r\n\r\n",
+      "last_modified": "2022-10-24T22:30:22-03:00"
+    },
+    {
+      "path": "index.html",
+      "title": "Taller Reforzamiento de R",
+      "description": "Welcome to the website. I hope you enjoy it!\n",
+      "author": [],
+      "contents": "\r\n\r\n\r\n\r\n",
+      "last_modified": "2022-10-24T22:30:27-03:00"
+    }
+  ],
+  "collections": []
+}
