@@ -60,7 +60,7 @@ vec_col<-c("#660600","#6F3930","#745248","#786B60","#E6E6E6","#738FBC","#003891"
 plot_prueba<-barplot(1:length(vec_col), col=vec_col)
 
 #https://coolors.co/21177a-fe4a17-788aa3-45503b
-style_duo( 
+xaringanthemer::style_duo( #ABB0BF
   primary_color = "#FFFFFF",  #555555 gris oscuro
   secondary_color = "#DD3333",#"#FF5252"))) 
   text_color = "#333333", #bc7777
@@ -373,6 +373,15 @@ Examinar el impacto de tratamientos por uso de sustancias en la prevención del 
 **NOTA**
 *#_#_#_#_#_#_#_#_#_#_
 - Nuestra hipótesis es que los pacientes que completan tendrán una probabilidad más baja de contactos con el sistema judicial en comparación con los que no completan, aunque este efecto disminuya a medida que el tiempo pasa.
+
+---
+class: partial-bg inverse
+
+background-image: linear-gradient(45deg, #ABB0BF, #555555)
+<!---#DD3333--->
+
+## Datos exploratorios
+
 
 ---
 class: center, middle

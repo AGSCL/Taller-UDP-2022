@@ -72,3 +72,9 @@ renv.lock
 *.xlsx
 *.rda
 *.RDataTmp
+*_cache
+.secrets/*
+H:/Mi unidad/Curso_UDP/Taller/.secrets
+./secrets
+shiny/*
+secrets/*
