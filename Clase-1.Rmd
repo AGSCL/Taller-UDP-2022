@@ -6,7 +6,7 @@ date:  "`r withr::with_locale(new =c('LC_TIME' = 'es_ES'), code =format(Sys.time
 output:
   xaringan::moon_reader:
     includes:
-      after_body: ['libs/collapseoutput.js','libs/hideOutput.js', 'libs/zoom.html', 'libs/manualcollapseinput.html']
+      after_body: ['mylibs/collapseoutput.js','mylibs/zoom.html','mylibs/hideOutput.js', 'mylibs/manualcollapseinput.html']
     transition: slide
     lib_dir: libs
     css: ['xaringan-themer.css', 'animate.min.css', 'ninjutsu']
@@ -23,12 +23,28 @@ output:
         scroll: false # disable slide transitions by scrolling
 ---
 
+
 ```{r setup_theme0, include = FALSE}
 rm(list=ls());gc()
 if(!grepl("4.1.2",R.version.string)){stop("Different version (must be 4.1.2)")}
 
 
 options(servr.daemon = TRUE)
+```
+
+```{cat, engine.opts=list(file = "mylibs/zoom.html"), include=F}
+<script src="https://lab.hakim.se/zoom-js/js/zoom.js" type="text/javascript"></script>
+<script type="text/javascript">
+	slideshow.on( "beforeHideSlide", function( slide ) {
+		zoom.out();
+	} );
+	slideshow.on( "afterShowSlide", function( slide ) {
+		document.querySelector( ".remark-visible" ).addEventListener( "dblclick", function( event ) {
+			event.preventDefault();
+			zoom.to( {element: event.target} );
+		} );
+	} );
+</script>
 ```
 
 ```{r setup, include = FALSE}
@@ -38,7 +54,7 @@ local({r <- getOption("repos")
 })
 
 if(!require(pacman)){install.packages("pacman")}
-pacman::p_load(devtools, here, showtext, ggpattern, RefManageR, pagedown, magick, bibtex, DiagrammeR, xaringan, xaringanExtra, xaringanthemer, fontawesome, widgetframe, datapasta, tidyverse, psych, cowplot, coxphw, future, timereg, flexsurv, pdftools, mstate, showtext, compareGroups, chilemapas, choroplethrAdmin1,  choroplethr, choroplethrMaps, ggiraph, sf,distill,
+pacman::p_load(devtools, here, showtext, ggpattern, RefManageR, pagedown, magick, bibtex, DiagrammeR, xaringan, xaringanExtra, xaringanthemer, fontawesome, widgetframe, datapasta, tidyverse, psych, tidyverse, cowplot, pdftools, showtext, compareGroups, ggiraph, sf, distill, data.tree,
                widgetframe, install= T)
 
 if(!require(xaringanBuilder)){devtools::install_github("jhelvy/xaringanBuilder",upgrade = "never")}
@@ -307,51 +323,30 @@ knitr::include_graphics('./_style/cropped-logotipo_fsch.png')
 **NOTA**
 *#_#_#_#_#_#_#_#_#_#_
 
-- Mi nombre es andrés gonzález. Soy asistente de investigación del proyecto que lidera Alvaro Castillo
-- En esta instancia haré un resumen de una idea de investigación que dirige mi compañera Mariel Mateo, que en esta instancia no se encuentra disponible debido a diferencias de horario. Se encuentra en Australia.
+- Mi nombre es andrés gonzález. Soy asistente de investigación de un proyecto milenio de políticas sobre drogas y trabajo para Alvaro Castillo en la Universidad Mayor en el Centro de Investigación en Sociedad y Salud. También estudio un doctorado en Salud pública en la Universidad de Chile
+- Ustedes: Nombre, nivel de manejo en R, experiencias previas con este software , manejo informático, expectativas
+- Es de carácter introductorio a R y Rstudio
+- No es un curso de estadística
+- No soy un experto en informática ni en estadística
+- Es un taller enfocado a la aplicación de herramientas básicas de gestión de datos en R y Rstudio
+- Brinda herramientas, guía y orientación para profundizar de manera individual
+- **Deben tener experiencia previa con R. Aquí no instalaremos R desde 0**
 
 ---
 layout: true
 class: animated, fadeIn
 ---
-## Antecedentes
+## Índice
 
-- Los trastornos por uso de sustancias (TUS) requieren un abordaje **multidimensional** $`r Cite(myBib, c("Stephen2012","RN266" ))`$.
+- Proyectos en R: Configurarlo, guardar conjuntos de datos, lógica de directorio, convenciones y buenas prácticas para guardar y abrir datos, códigos, referencias, salidas de código, figuras, etc.
 
-- Reducir el uso se asocia a una reducción de la actividad criminal $`r Cite(myBib, "prendergast2006")`$.
+- Visualización de datos mediante ggplot: lógica de capas, propiedades de los gráficos, paquetes estadísticos complementarios 
 
-- **“puerta giratoria”** $`r Cite(myBib, c("White2012","Valenzuela2012","Sullivan2019"))`$.
-
-- **Evidencia:** Países desarrollados, muestras pequeñas, modalidades específicas de tratamiento, determinados perfiles de usuarios de drogas, etc. $`r Cite(myBib, c("Krebs2008","Burdon2007", "Teesson2015" ))`$
-
-- Completar el tratamiento: Uno de los criterios más utilizados para evaluar efectividad $`r Cite(myBib, c("Eastwood2018","Brorson2013"))`$.
-
+- (Extra: De ser posible, Aplicación en estadística descriptiva y modelos de regresión en R)
 
 .center[
 .black[
-  **¿Mismo contexto que en nuestro país /región?**
-]
-]
-
----
-## Antecedentes (2)
-
-- Perfiles de consumo distintos  $`r Cite(myBib, c("Pacurucu2019","Reyes2013","Silva2009", "Castro2021"))`$ 
-
-- Chile, caso de interés, sistemas de monitoreo de tratamientos más antiguos en la región $`r Cite(myBib, c("Marin2018"))`$ 
-
-- Cambios en patrones de contactos con el sistema de justicia y tratamiento TUS $`r Cite(myBib, c("Castillo2015"))`$
-
-- Los tratamientos no sobran: Brecha de acceso: 1:10 usuarios tratados por TUS (13° Estudio Nacional de uso de Sustancias en Población General 2018) $`r Cite(myBib, c("nuevo1"))`$.
-
-- Chile, desafíos en materia de **evaluación efectividad de tratamientos** $`r Cite(myBib, c("nuevo2"))`$. (DIPRES-ISUC, 2020)
-
-- Completar tratamiento ~ readmisión tratamientos TUS (Chile) $`r Cite(myBib, c("Olivari2021"))`$.
-
-
-.center[
-.black[
-  **¿qué ocurre con los contactos con el sistema de justicia?**
+  **Siempre y cuando sea posible**
 ]
 ]
 
@@ -360,27 +355,207 @@ class: animated, fadeIn
 **NOTA**
 *#_#_#_#_#_#_#_#_#_#_
 
+- Dicho esto, vamos al grano
 
 ---
-class: center, middle
-
-## Objetivos
-
-Examinar el impacto de tratamientos por uso de sustancias en la prevención del contacto con el sistema judicial en Chile, en el corto (3 a 6 meses), medio (1 año) y largo plazo (3 años)
-
-???
-*#_#_#_#_#_#_#_#_#_#_
-**NOTA**
-*#_#_#_#_#_#_#_#_#_#_
-- Nuestra hipótesis es que los pacientes que completan tendrán una probabilidad más baja de contactos con el sistema judicial en comparación con los que no completan, aunque este efecto disminuya a medida que el tiempo pasa.
-
----
-class: partial-bg inverse
+class: partial-bg inverse center, middle
 
 background-image: linear-gradient(45deg, #ABB0BF, #555555)
 <!---#DD3333--->
 
-## Datos exploratorios
+## Partamos
+
+---
+## Entorno/Espacio de Trabajo
+
+- Apriete `Cntrl + Alt + Shift 0`
+<div class="yellow">- Editor de texto o códigos (ACTUALIZACION: Editor Visual Markdown)</div>
+<div class="green">- Lugar de trabajo (objetos creados, funciones, historial, control de versiones) (ACTUALIZACION: Se agregó Tutorial)</div>
+<div class="red">- Consola para desplegar los comandos y obtener resultados</div>
+<div class="blue">- Multitabla (gráficos, carpetas, paquetes, visor páginas web)</div>
+
+```{r Fig Entorno, fig.align="center", message=FALSE, warning=FALSE, cache=T, echo =F, out.width = "700px"}
+#knitr::include_graphics("G:/Mi unidad/Alvacast/Curso/Entorno de Trabajo.PNG")
+knitr::include_graphics("./_figs/Entorno de Trabajo.PNG")
+```
+
+???
+*#_#_#_#_#_#_#_#_#_#_
+**NOTA**
+*#_#_#_#_#_#_#_#_#_#_
+Comentarios:
+- Cntrl+ Shift +H : Paara definir el entorno de trabajo.//Cmd + D: Para cambiar el entorno de trabajo
+- Editor de sintaxis: Formato block de notas, no ejecuta la sintaxis, comentarios se agregan anteponiendo el signo gato, puede predecir comandos, se ejecuta con cntrl+enterp "run"
+- Consola y visor resultados: Con un enter se ejcutarán, cambiarán de color una vez ejecutados, los errores arrojarán mensajes, ejecutar operaciones no es lo mismo que guardarlas, se ejecuta cuando hay un signo ">", no hay un mensaje de stop en la esquina superior derecha.
+- Entorno de trabajo: Memoria interna programa y uso de memoria RAM, entorno de trabajo temporal, objetos almacenados.
+- Visualizador: permite acceder a CRAN, manuales, etc.
+:::
+
+---
+## Entorno de Trabajo (2)
+
+- Rstudio permite crear un **Proyecto** (.Rproj), agrupa a todos los elementos. Puede gestionar los proyectos aquí:
+
+```{r Fig rproj, fig.align="center", message=FALSE, warning=FALSE, cache=T, echo =F, out.width = "250px"}
+#, out.width = "250px"
+knitr::include_graphics("./_figs/rproj.png")
+```
+
+-**Directorio:** Ubicación en la que alojaré archivos que formarán parte del entorno de trabajo. Se obtiene mediante `getwd()`. **Configurarlo es muy importante (`setwd([RUTA])`).**
+- **.rds:** Permite guardar bases de datos de manera individual (muy similar a una hoja excel, un archivo .csv, etc.)
+- **.Rdata:** Permite guardar múltiples datos, objetos, funciones, etc., lo que equivale a decir que permite guardar el espacio de trabajo en general (`save.image(file =[RUTA])` para guardar todo, `save` para guardar sólo ciertos objetos en un .Rdata, `load([RUTA])` para restaurar). De igual forma, puede hacerlo desde aquí:
+
+```{r Fig save_load_image, fig.align="center", message=FALSE, warning=FALSE, cache=T, echo =F, out.width = "250px"}
+knitr::include_graphics("./_figs/guardar_load_rdata.png")
+```
+
+_ **.R:** Una especie de archivos de texto en el que se pueden guardar comandos, anotaciones, etc. Similar a un archivo `.do` o sintaxis. Se recomienda que antes de cerrar una sesión, uno pueda guardar los scripts. **.Rdata no es lo mismo que .R, RECUÉRDELO**. A continuación se muestra cómo (Amarillo, crear nuevo; Rojo, abrir; Verde, guardar o guardar todos):
+
+???
+*#_#_#_#_#_#_#_#_#_#_
+**NOTA**
+*#_#_#_#_#_#_#_#_#_#_
+PROYECTOS: que agrupa/incorpora los distintos elementos de más abajo. Se recomienda crear uno siempre que se trabaje en un proyecto de investigación nuevo. Además, se recomienda asignarle una carpeta de trabajo individual, que pueda estar respaldada constantemente (ojo: cuidado con Google Drive). 
+ - Igual uno puede guardar un solo archivo con `save(data_cons, file = "OUT/data3.RData")`
+ 
+ 
+---
+## Tips/Recomendaciones
+
+- `here::here()` permite saber cuál es la ubicación del directorio en vez de utilizar un directorio fijo.
+
+- `rm(list = ls())` si bien puede ser útil, no empieza un proceso de R totalmente limpio, sino que elimina objetos creados en el espacio de trabajo.
+
+- `renv()`, en un proyecto permite tener los paquetes de R actualizados hasta cierta fecha, junto con sus dependencias
+
+- `rstudioapi::getSourceEditorContext()$path`, permite también tener una ubicación relativa de su proyecto.
+
+```{r Fig r-script-tip, fig.align="center", message=FALSE, warning=FALSE, cache=T, echo =F, out.width = "350px"}
+knitr::include_graphics("./_figs/DQugFIWUEAErq0D.jpg")
+```
+
+- Vea las opciones de su proyecto
+
+```{r Fig open_save_load_script, fig.align="center", message=FALSE, warning=FALSE, cache=T, echo =F, out.width = "350px"}
+knitr::include_graphics("./_figs/DQugFIWUEAErq0D.jpg")
+```
+
+???
+*#_#_#_#_#_#_#_#_#_#_
+**NOTA**
+*#_#_#_#_#_#_#_#_#_#_
+PROYECTOS: 
+
+- Uno ve cuándo actualiza RENV. Aunque es medio inestable, creo que es una gran opción.
+- 
+
+
+---
+## Ejemplo
+
+
+.details-code[
+
+```{r ej0, message=FALSE, warning=FALSE, echo=T}
+path<-
+list.files("./", full.names = TRUE, recursive = TRUE)
+
+library(data.tree)
+library(plyr)
+
+a <- lapply(strsplit(path, "/"), function(z) as.data.frame(t(z)))
+a <- rbind.fill(a)
+mytree <- data.tree::as.Node(data.frame(pathString = path))
+mytree
+
+```
+
+]
+
+???
+*#_#_#_#_#_#_#_#_#_#_
+**NOTA**
+*#_#_#_#_#_#_#_#_#_#_
+PROYECTOS: 
+
+- Este es un proyecto que tiene una serie de carpetas, que se conecta a Github (control de versiones), etc.
+
+---
+## Ejercicio 2
+- Su jefe le pide que vea los datos guardados en el proyecto de R adjunto en el enlace.
+
+- Abra el siguiente [enlace](https://github.com/AGSCL/Curso_R/raw/master/0c963a043f92e3c567b6afb48d406df5a2f38f5c/ejercicio2.zip) y baje los datos.
+
+- Abra el proyecto, el .Rdata pero no el script 
+
+- Vea las primeras 6 filas del objeto `base_datos`
+
+- OPC. Vea las primeras 3 filas
+
+- ¿A qué llegó?
+
+```{r ej2, include=F}
+##script, comentario
+set.seed(112);base_datos<-data.frame(esto=rnorm(1:100))
+
+head(base_datos) 
+#1 -0.3142317
+#2  2.4033751
+#3 -0.7182640
+#4 -1.7606110
+#5 -1.1252812
+#6 -0.7195406
+
+head(base_datos,3)
+# -0.3142317
+#  2.4033751
+# -0.7182640
+
+head_base_datos<-capture.output(head(base_datos,3)) #capturamos lo que la consola nos entrega en un objeto
+```
+
+---
+## Ejercicio: Hágalo usted
+
+- Cree un nuevo proyecto en R
+
+- Genere la siguiente base de datos recurriendo a este código: `set.seed(6789); df2<- data.frame(numeros=round(rnorm(1:300)*100,0))`
+
+- Utilizando `tail(df2)` obtenga las últimas 6 observaciones
+
+- Súmelas
+
+- ¿Llegó al siguiente número: `r set.seed(6789); df2<- data.frame(numeros=round(rnorm(1:300)*100,0));sum(tail(df2))`?
+
+- OPC1 = obtenga la media de todos los números (use recursos en línea)
+
+- OPC2 (+ avanzada)= obtenga el resultado usando comas como separador de decimales ("outdec" en internet)
+
+- OPC3 = Obtenga la desviación estándar, separando los decimales con comas
+
+- Guarde los datos y el proyecto
+
+- Reinicie el computador. Vuelva a abrirlos
+
+```{r hagalo_usted, include=F}
+set.seed(6789); df2<- data.frame(numeros=round(rnorm(1:300)*100,0))
+
+#Utilizando tail(df2) obtenga las últimas 6 observaciones. Súmelas
+sum(tail(df2))
+
+#OPC1 = obtenga la media de todos los números (use recursos en línea)
+tail_df2<-tail(df2)
+
+mean(tail_df2$numeros)
+
+#OPC2 (+ avanzada)= obtenga el resultado usando comas como separador de decimales (“outdec” en internet)
+options(OutDec= ",")
+mean(tail_df2$numeros)
+
+#OPC3 = Obtenga la desviación estandar, separando los decimales con comas
+options(OutDec= ",")
+sd(tail_df2$numeros)
+```
 
 
 ---
@@ -405,29 +580,22 @@ knitr::include_graphics('./_style/cropped-logotipo_fsch.png')
 ```
 <br>
   
----
-## Referencias
-  
-```{r refs1, echo=FALSE, results="asis"}
-suppressWarnings(PrintBibliography(myBib, start= 1, end= 7))
-#https://github.com/ropensci/RefManageR/blob/master/R/rmdCite.R
-```
 
 ---
-## Referencias (2)
-  
-```{r refs2, echo=FALSE, results="asis"}
-suppressWarnings(PrintBibliography(myBib, start= 8, end= 15))
-#https://github.com/ropensci/RefManageR/blob/master/R/rmdCite.R
-```
+## Fuentes
 
----
-## Referencias (3)
-  
-```{r refs3, echo=FALSE, results="asis"}
-suppressWarnings(PrintBibliography(myBib, start= 16, end= 24))
-#https://github.com/ropensci/RefManageR/blob/master/R/rmdCite.R
-```
+- Boccardo, Giorgio & Ruiz, Felipe. (2018). Uso de RStudio para Estadística Univariada en Ciencias Sociales. Manual de apoyo docente para la asignatura Estadística Descriptiva (1a. Edición). 10.13140/RG.2.2.32783.48803. https://github.com/feliperuizbruzzone/Uso-de-R-para-Estadistica-Social/blob/master/Boccardo%20%26%20Ruiz%20(2018).%20Uso%20de%20RStudio%20para%20Estad%C3%ADstica%20Univariada%20en%20Ciencias%20Sociales%20%5B19%20%20julio%5D.pdf
+
+- Cano, E. & Moguerza, J. (2015). “R desde el principio. Curso ceRo de R”. Ediciones del Orto, Madrid. ISBN 84-7923-526-8. http://emilio.lcano.com/pub/cero/R-desde-el-principio-curso-cero-V1.02.pdf
+
+- R Development Core Team (2000). Introducción a R. Notas sobre R: Un entorno de programación para Análisis de Datos y Gráficos. Versión 1.0.1
+https://cran.r-project.org/doc/contrib/R-intro-1.1.0-espanol.1.pdf
+
+- Bryan, J. (2017, Diciembre 12). Project-oriented workflow. https://www.tidyverse.org/blog/2017/12/workflow-vs-script/
+
+- RStudio Support (2022, Octubre 16). Using RStudio Projects. https://support.rstudio.com/hc/en-us/articles/200526207-Using-Projects
+
+- 
 
 ```{r exp, eval=F,echo=F, results="asis"}
 library(pagedown)

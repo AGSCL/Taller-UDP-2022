@@ -32,7 +32,7 @@ knitr::opts_chunk$set(echo = FALSE)
 
 # Fecha: `r format(Sys.time(), '%d %B, %Y')`
 
-Se requiere que curse la siguiente prueba diagnóstica [aquí](proyecto.html)
+Se requiere que curse la siguiente prueba diagnóstica [aquí](https://agscl2.shinyapps.io/Taller/)
 
 Esta página está compuesta de los siguientes tópicos:
 
