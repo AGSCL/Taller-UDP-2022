@@ -54,9 +54,12 @@ local({r <- getOption("repos")
 })
 
 if(!require(pacman)){install.packages("pacman")}
-pacman::p_load(devtools, here, showtext, ggpattern, RefManageR, pagedown, magick, bibtex, DiagrammeR, xaringan, xaringanExtra, xaringanthemer, fontawesome, widgetframe, datapasta, tidyverse, psych, tidyverse, cowplot, pdftools, showtext, compareGroups, ggiraph, sf, distill, data.tree,
+pacman::p_load(devtools, here, showtext, ggpattern, RefManageR, pagedown, magick, bibtex, DiagrammeR, xaringan, xaringanExtra, xaringanthemer, fontawesome, widgetframe, datapasta, tidyverse, psych, tidyverse, cowplot, pdftools, showtext, compareGroups, ggiraph, sf, distill, data.tree, jsonlite, emo, htmlwidgets,
                widgetframe, install= T)
 
+
+if(!require(codehover)){devtools::install_github("EvaMaeRey/flipbookr")}
+if(!require(codehover)){devtools::install_github("arthurwelle/codehover",upgrade = "never")}
 if(!require(xaringanBuilder)){devtools::install_github("jhelvy/xaringanBuilder",upgrade = "never")}
 if(!require(icons)){remotes::install_github("mitchelloharawild/icons",upgrade = "never")}
 
@@ -406,14 +409,15 @@ knitr::include_graphics("./_figs/pipe_vs_rest.png")
 - `data= `, `geom_*`, `aes()`
 - **+** = añadir capas
 - **aes()**, lo que está fuera puede ser fijado (ej., tamaño= 1)
+- No se hará una leyenda de eso
 
 ---
 ## Elementos (2)
 
 
 ```{r Fig-2, fig.align="center", message=FALSE, warning=FALSE, cache=T, echo =F, out.width = "300x"}
-#knitr::include_graphics("G:/Mi unidad/Alvacast/Curso/Importar_xlsx.png")
-knitr::include_graphics("https://rstudio-conf-2020.github.io/r-for-excel/img/rstudio-cheatsheet-ggplot.png")
+#knitr::include_graphics("https://rstudio-conf-2020.github.io/r-for-excel/img/rstudio-cheatsheet-ggplot.png")
+image_colorize(image_read(path = "https://rstudio-conf-2020.github.io/r-for-excel/img/rstudio-cheatsheet-ggplot.png"),35,"red")
 ```
 
 ---
@@ -477,7 +481,8 @@ ggplot()+
       scale_x_date()+ 
       xlab("Fecha")+ 
       sjPlot::theme_blank()+ #<<
-      theme(legend.position="bottom") #<<
+      theme(legend.position="bottom")+#<<
+      scale_color_manual(values=c("#DD3333","#333333"))#<<
 ```
  
 ] 
@@ -493,7 +498,9 @@ ggplot()+
       xlab("Fecha")+ 
       sjPlot::theme_blank()+ 
       theme(legend.position="bottom")+ 
-      facet_wrap(~Region) #<<
+      scale_color_manual(values=c("#DD3333","#333333"))+#<<
+      facet_wrap(~Region)#<<
+      
 #guardamos los datos
 ggplot2::ggsave("./_figs/1.png", width = 5, height = 10, dpi = 100)    
 ```
@@ -503,7 +510,150 @@ ggplot2::ggsave("./_figs/1.png", width = 5, height = 10, dpi = 100)
 ]
 
 ---
+## Observaciones
+
+- Autoexplicativo
+
+- Los gráficos pueden estar sujetos a sesgos (cc. o icc.)
+
+- Es necesario explicitar cómo se construyó el gráfico
+
+- Misma escala
+
+- Orden de los datos
+
+
+Ejemplos:
+
+- [Datos Victimización](https://www.adnradio.cl/politica/2017/11/06/el-extrano-grafico-que-presento-sebastian-pinera-para-justificar-la-baja-de-victimizacion-3630063.html)
+
+- [Datos ENUSC](https://www.biobiochile.cl/noticias/nacional/chile/2021/08/30/adopcion-homoparental-comision-aprueba-proyecto-en-general-y-pasa-a-votacion-en-sala-del-senado.shtml)
+
+- [Datos CASEN](https://www.eldesconcierto.cl/nacional/2018/08/21/graficos-vuelven-a-penar-a-pinera-la-curiosa-forma-de-presentar-los-datos-de-distrubucion-de-ingresos-en-la-casen.html)
+
+- [Desafíos gobierno](https://www.concierto.cl/2019/11/mega-es-el-canal-mas-denunciado-por-su-cobertura-de-la-crisis/)
+
+- [Tasa de positividad](https://twitter.com/leosoto/status/1280474285199503366?s=20)
+
+- [Días sandwich](https://twitter.com/salinas_chile/status/1336114088863289346/photo/1)
+
+- [Gráfico ritmo vacunación](https://www.biobiochile.cl/noticias/nacional/chile/2021/04/22/grafico-evidencia-como-baja-ritmo-de-vacunacion-minsal-lo-mostro-en-otra-escala.shtml)
+
+- [Aprobación presidencial](https://www.theclinic.cl/2020/11/30/la-version-de-mega-por-cuestionado-grafico-que-mostraba-aprobacion-y-rechazo-de-pinera-en-la-cadem/)
+
+
+```{r, echo=FALSE,  fig.align="center", out.width=300, error=T}
+
+knitr::include_graphics('./_figs/maduro.jpg')
+
+```
+
+???
+*#_#_#_#_#_#_#_#_#_#_
+**NOTA**
+*#_#_#_#_#_#_#_#_#_#_
+- Debe simplificar, no complicar; no debe depender de un texto
+- Elegir el título, la escala, leyendas, etc. MUY BIEN
+- Gráficos de barra, ordenar de mayor a menor o por algún criterio ordinal si lo hay
+- Indicar la fuente de los datos si son ajenos
+- Alterar la escala de medición o truncarla (ej. exagerar diferencias)
+- Filtrar valores extremos sin reportar
+- Agrupar valores que no corresponde agrupar para ocultar anomalías 
+- La importancia de ejemplos reproducibles
+- En los textos aparece el gráfico de pie/sector. Yo personalmente no lo recomiendo porque requiere mucha información adicional (mejor una tabla)
+  - más recomendable utilizarlo para variables nominales con pocas categorías.
+- Los gráficos de polígonos como los de líneas, los veremos posteriormente
+
+---
+background-image: url("./_figs/71746538_1513071482177691_7543072537354174464_n.jpg")
+
+
+---
+## Aplicación (2)
+
+.panelset.sideways[
+
+.panel[.panel-name[Estructura hipotética]
+```{r message=FALSE, warning=FALSE, paged.print=FALSE, out.width = '400cm', out.height='400cm', fig.align = "center", eval=T}
+library(jsonlite)
+
+history1 = fromJSON("_data/StreamingHistory0.json", flatten = TRUE)
+history2 = fromJSON("_data/StreamingHistory1.json", flatten = TRUE)
+
+st = rbind(history1,history2)
+rm(history1,history2)
+# what does the dataframe contain.
+head(st) %>% 
+  knitr::kable("markdown")
+```
+
+]
+
+.panel[.panel-name[Usamos la base, la transformamos y hacemos un gráfico de barra]
+```{r message=FALSE, warning=FALSE, paged.print=FALSE, out.width = '400cm', out.height='400cm', fig.align = "center", eval=T}
+st %>%
+  dplyr::count(artistName, sort = TRUE) %>%
+  dplyr::top_n(20) %>%
+  dplyr::mutate(artistName = reorder(artistName, n)) %>%
+  ggplot(aes(x = artistName, y = n)) + #<<
+  geom_bar(aes(fill=n),   #<<
+           stat="identity") #<<
+```
+]
+
+
+.panel[.panel-name[Añadimos una temática con una escala de colores]
+```{r message=FALSE, warning=FALSE, paged.print=FALSE, out.width = '400cm', out.height='400cm', fig.align = "center", eval=T}
+st %>%
+  dplyr::count(artistName, sort = TRUE) %>%
+  dplyr::top_n(20) %>%
+  dplyr::mutate(artistName = reorder(artistName, n)) %>%
+  ggplot(aes(x = artistName, y = n)) + 
+  geom_bar(aes(fill=n),   
+           stat="identity") + 
+    scale_fill_viridis_c(option = "magma",direction = -1) + #<< 
+  xlab(NULL)  #<<
+```
+
+]
+
+.panel[.panel-name[Se definen etiquetas y se gira el gráfico de barras, se pone el gráfico en mínimo]
+```{r message=FALSE, warning=FALSE, paged.print=FALSE, out.width = '400cm', out.height='400cm', fig.align = "center", eval=T}
+st %>%
+  dplyr::count(artistName, sort = TRUE) %>%
+  dplyr::top_n(20) %>%
+  dplyr::mutate(artistName = reorder(artistName, n)) %>%
+  ggplot(aes(x = artistName, y = n)) + 
+  geom_bar(aes(fill=n),   
+           stat="identity") + 
+  scale_fill_viridis_c(option = "magma",direction = -1) + 
+  xlab(NULL) + 
+  coord_flip() + #<<
+  labs(x = "Artistas", #<<
+       title = "Artistsas que más he escuchado el 2021", #<<
+       fill = "Recuento") + #<<
+  theme_minimal() #<<
+```
+
+]
+
+]
+
+---
 ## Ejercicio 1
+
+- Con los siguientes datos (`mtcars`), llegue al siguiente gráfico:
+
+```{r, include=F, eval=F}
+ggplot(data = mtcars) + 
+  geom_point(aes(mpg, qsec, colour = factor(am))) +
+  facet_grid(~vs)
+```
+
+```{r, echo=FALSE,  fig.align="center", out.width=250, error=T}
+knitr::include_graphics('./_figs/descarga.png')
+```
+
 
 ???
 *#_#_#_#_#_#_#_#_#_#_
@@ -525,9 +675,77 @@ ggplot2::ggsave("./_figs/1.png", width = 5, height = 10, dpi = 100)
 *#_#_#_#_#_#_#_#_#_#_
 
 ---
+## Otros paquetes relacionados recomendados (2)
+
+`r flipbookr::chunk_reveal("my_cars")`
+
+.details-code[
+```{r my_cars, eval=T, message=FALSE, warning=FALSE, include=T}
+starwars %>% 
+ggplot2::ggplot() +
+  geom_point(aes(x = birth_year, 
+                 y = height),color = "red")+ 
+  scale_y_continuous(limits = c(0,200))+
+  labs(title = "Un ggplot")+
+   theme_bw()
+``` 
+]
+          
+
+---
 ## Ejercicio 2
 
-- 
+- Genere el gráfico que corresponda para analizar la distribución de los datos presentados más abajo. De acuerdo a las lecturas y fuentes que corresponda (busque en internet), indique su distribución.
+
+- set.seed(2125);datos<-runif(100,50,500)
+
+```{r message=FALSE, warning=FALSE, paged.print=FALSE, out.width = '400cm', out.height='400cm', fig.align = "center", eval=F, include=F}
+datos %>%
+  as.data.frame() %>% 
+  ggplot(aes(.))+
+  geom_density()+
+  labs(y="Densidad", x="Datos", title="Diagrama de densidad de los datos")+
+  theme_minimal()
+# Uniforme, aunque podría describirse como bimodal, o una distribución dirichlet en la que cada agrupación representa distribuciones latentes superpuestas en torno a una cateogría K; O una funcion de probabilidad binomial con distinto número de  éxitos
+```
+
+
+- Use la base `ChickWeight` y haga un diagrama de puntos entre el tiempo y el peso. Grafique la dispersión de los puntos y añada una línea suavizada (`smooth`) para ver si hay alguna tendencia. Añada etiquetas y un tema en blanco y negro.
+
+```{r message=FALSE, warning=FALSE, paged.print=FALSE, out.width = '400cm', out.height='400cm', fig.align = "center", eval=F, include=F}
+library(ggplot2)
+ggplot(ChickWeight, aes(Time, weight))+ #incluimos las 2 variables, una en el eje x y el otro en Y
+  geom_jitter(width = 0.75)+# esoecificamos os puntos, puede ser geom_point ---> lo hice para separar los puntos
+  #######  ocupar una regresión no lineal para ver la relación
+  geom_smooth(span = 0.8)+
+  #######  utilizamos un tema que simplifique los colores del plot
+  theme_bw()+
+  #######  especificamos las etiqueta
+  ylab("Peso (gramos)")+
+  xlab("Tiempo")
+
+```
+
+
+---
+## Ejercicio 3
+
+- Cargue la base de datos disponible desde https://github.com/pjcarozzi/riclpm/raw/main/documentos/data/elsoc_onoffline.Rdata, despliéguela (si quiere, lea una descripción de las variables en https://multivariada.netlify.app/assignment/11-code/ o de la fuente indicada en el programa sobre las variables de la encuesta). Las primeras columnas corresponden a las columnas C08_02 y C08_04 del estudio longitudinal ELSOC. Los números después de la w indican la ola de aplicación.
+
+- Hay una variable que es claramente continua. Genere un histograma con aprox. (sugerido) 30 quiebres
+
+- Genere un gráfico de barras con la frecuencia de los distintos niveles educacionales
+
+
+```{r message=FALSE, warning=FALSE, paged.print=FALSE, out.width = '400cm', out.height='400cm', fig.align = "center", eval=F, include=F}
+load(url("https://github.com/pjcarozzi/riclpm/raw/main/documentos/data/elsoc_onoffline.Rdata"))
+
+elsoc %>% 
+ggplot(aes(x=edad))+
+geom_histogram(bins=30)+
+labs(x="Edad", y="Frecuencia", title="Histograma de edad")
+```
+
 
 ???
 *#_#_#_#_#_#_#_#_#_#_
@@ -563,7 +781,13 @@ knitr::include_graphics('./_style/cropped-logotipo_fsch.png')
 
 - Yıldırım, S. (2021, Marzo 02) The Flawless Pipes of Tidyverse. Exploratory data analysis made easy. https://towardsdatascience.com/the-flawless-pipes-of-tidyverse-bb2ab3c5399f
 
+- Ballari, D. (2018). Funcion ggplot() de ggplot2. https://rpubs.com/daniballari/ggplot
+
 - Hadley Wickham (2010) A Layered Grammar of Graphics, Journal of Computational and Graphical Statistics, 19:1, 3-28, DOI: 10.1198/jcgs.2009.07098
+
+- Nordmann E, McAleer P, Toivo W, Paterson H, DeBruine LM. Data Visualization Using R for Researchers Who Do Not Use R. Advances in Methods and Practices in Psychological Science. 2022;5(2). doi:10.1177/25152459221074654
+
+- Hyndman, R. (2010, Agosto 06). Twenty rules for good graphics. https://robjhyndman.com/hyndsight/graphics/
 
 - Plavskin, E. (2019, November 12). Intro to ggplot. https://learn.gencore.bio.nyu.edu/intro-to-ggplot/
 

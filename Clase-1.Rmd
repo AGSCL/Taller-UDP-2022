@@ -389,7 +389,6 @@ Comentarios:
 - Consola y visor resultados: Con un enter se ejcutarán, cambiarán de color una vez ejecutados, los errores arrojarán mensajes, ejecutar operaciones no es lo mismo que guardarlas, se ejecuta cuando hay un signo ">", no hay un mensaje de stop en la esquina superior derecha.
 - Entorno de trabajo: Memoria interna programa y uso de memoria RAM, entorno de trabajo temporal, objetos almacenados.
 - Visualizador: permite acceder a CRAN, manuales, etc.
-:::
 
 ---
 ## Entorno de Trabajo (2)
@@ -409,7 +408,7 @@ knitr::include_graphics("./_figs/rproj.png")
 knitr::include_graphics("./_figs/guardar_load_rdata.png")
 ```
 
-- **.R:** Una especie de archivos de texto en el que se pueden guardar comandos, anotaciones, etc. Similar a un archivo `.do` o sintaxis. Se recomienda que antes de cerrar una sesión, uno pueda guardar los scripts. **.Rdata no es lo mismo que .R, RECUÉRDELO**. A continuación se muestra cómo (Amarillo, crear nuevo; Rojo, abrir; Verde, guardar o guardar todos):
+- **.R:** Una especie de archivos de texto en el que se pueden guardar comandos, anotaciones, etc. Similar a un archivo `.do` o sintaxis. Se recomienda que antes de cerrar una sesión, uno pueda guardar los scripts. **.Rdata no es lo mismo que .R, RECUÉRDELO**.
 
 ???
 *#_#_#_#_#_#_#_#_#_#_
@@ -417,7 +416,9 @@ knitr::include_graphics("./_figs/guardar_load_rdata.png")
 *#_#_#_#_#_#_#_#_#_#_
 PROYECTOS: que agrupa/incorpora los distintos elementos de más abajo. Se recomienda crear uno siempre que se trabaje en un proyecto de investigación nuevo. Además, se recomienda asignarle una carpeta de trabajo individual, que pueda estar respaldada constantemente (ojo: cuidado con Google Drive). 
 
- - Igual uno puede guardar un solo archivo con `save(data_cons, file = "OUT/data3.RData")`
+- Igual uno puede guardar un solo archivo con `save(data_cons, file = "OUT/data3.RData")`
+
+- asdasd
  
  
 ---
