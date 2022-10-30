@@ -401,7 +401,7 @@ Comentarios:
 knitr::include_graphics("./_figs/rproj.png")
 ```
 
--**Directorio:** Ubicación en la que alojaré archivos que formarán parte del entorno de trabajo. Se obtiene mediante `getwd()`. **Configurarlo es muy importante (`setwd([RUTA])`).**
+- **Directorio:** Ubicación en la que alojaré archivos que formarán parte del entorno de trabajo. Se obtiene mediante `getwd()`. **Configurarlo es muy importante (`setwd([RUTA])`).**
 - **.rds:** Permite guardar bases de datos de manera individual (muy similar a una hoja excel, un archivo .csv, etc.)
 - **.Rdata:** Permite guardar múltiples datos, objetos, funciones, etc., lo que equivale a decir que permite guardar el espacio de trabajo en general (`save.image(file =[RUTA])` para guardar todo, `save` para guardar sólo ciertos objetos en un .Rdata, `load([RUTA])` para restaurar). De igual forma, puede hacerlo desde aquí:
 
@@ -409,13 +409,14 @@ knitr::include_graphics("./_figs/rproj.png")
 knitr::include_graphics("./_figs/guardar_load_rdata.png")
 ```
 
-_ **.R:** Una especie de archivos de texto en el que se pueden guardar comandos, anotaciones, etc. Similar a un archivo `.do` o sintaxis. Se recomienda que antes de cerrar una sesión, uno pueda guardar los scripts. **.Rdata no es lo mismo que .R, RECUÉRDELO**. A continuación se muestra cómo (Amarillo, crear nuevo; Rojo, abrir; Verde, guardar o guardar todos):
+- **.R:** Una especie de archivos de texto en el que se pueden guardar comandos, anotaciones, etc. Similar a un archivo `.do` o sintaxis. Se recomienda que antes de cerrar una sesión, uno pueda guardar los scripts. **.Rdata no es lo mismo que .R, RECUÉRDELO**. A continuación se muestra cómo (Amarillo, crear nuevo; Rojo, abrir; Verde, guardar o guardar todos):
 
 ???
 *#_#_#_#_#_#_#_#_#_#_
 **NOTA**
 *#_#_#_#_#_#_#_#_#_#_
 PROYECTOS: que agrupa/incorpora los distintos elementos de más abajo. Se recomienda crear uno siempre que se trabaje en un proyecto de investigación nuevo. Además, se recomienda asignarle una carpeta de trabajo individual, que pueda estar respaldada constantemente (ojo: cuidado con Google Drive). 
+
  - Igual uno puede guardar un solo archivo con `save(data_cons, file = "OUT/data3.RData")`
  
  
@@ -446,9 +447,8 @@ knitr::include_graphics("./_figs/DQugFIWUEAErq0D.jpg")
 *#_#_#_#_#_#_#_#_#_#_
 PROYECTOS: 
 
-- Uno ve cuándo actualiza RENV. Aunque es medio inestable, creo que es una gran opción.
+- Uno ve cuándo actualiza RENV (sus paquetes etc). Aunque es medio inestable, creo que es una gran opción.
 - 
-
 
 ---
 ## Ejemplo
@@ -479,12 +479,13 @@ mytree
 PROYECTOS: 
 
 - Este es un proyecto que tiene una serie de carpetas, que se conecta a Github (control de versiones), etc.
+- Esta es la estructura de datos que hay en su interior
 
 ---
 ## Ejercicio 2
 - Su jefe le pide que vea los datos guardados en el proyecto de R adjunto en el enlace.
 
-- Abra el siguiente [enlace](https://github.com/AGSCL/Curso_R/raw/master/0c963a043f92e3c567b6afb48d406df5a2f38f5c/ejercicio2.zip) y baje los datos.
+- Abra el siguiente [enlace](https://github.com/AGSCL/Taller-UDP-2022/raw/main/_data/ejercicio2.zip) y baje los datos.
 
 - Abra el proyecto, el .Rdata pero no el script 
 
