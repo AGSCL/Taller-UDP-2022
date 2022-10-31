@@ -331,6 +331,7 @@ knitr::include_graphics('./_style/cropped-logotipo_fsch.png')
 - Es un taller enfocado a la aplicación de herramientas básicas de gestión de datos en R y Rstudio
 - Brinda herramientas, guía y orientación para profundizar de manera individual
 - **Deben tener experiencia previa con R. Aquí no instalaremos R desde 0**
+- Otra cosa: si usted no puede asistir algún día, pero decide asistir el día siguiente y me solicita ayuda por algo visto el día anterior, tendrá última prioridad respecto a quienes tienen preguntas referentes al día de hoy, y de quienes asistieron el día anterior pero igual tienen dudas de ese día.
 
 ---
 layout: true
@@ -564,6 +565,19 @@ mean(tail_df2$numeros)
 options(OutDec= ",")
 sd(tail_df2$numeros)
 ```
+
+
+???
+*#_#_#_#_#_#_#_#_#_#_
+**NOTA**
+*#_#_#_#_#_#_#_#_#_#_
+**Ejercicio: Hágalo con su compañere**
+- En la carpeta `_data`, encontrará 2 ejercicios con nombre: **1a** y **1b**.
+- Ejecute el .RMD, genere con él un proyecto y 
+- Guarde la .Rdata con nombre 1a o 1b según corresponda (**NADA MÁS**)
+- Compártalo con un compañere
+- En aquel proyecto que le compartieron, sólo abra el .RData, despliegue el 
+- resultado alojado en el objeto **"plot"**
 
 
 ---
