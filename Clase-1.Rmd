@@ -380,7 +380,7 @@ background-image: linear-gradient(45deg, #ABB0BF, #555555)
 image_colorize(image_read(path = "https://github.com/AGSCL/Taller-UDP-2022/raw/main/_figs/entorno_de_trabajo.PNG"),15,"red")
 ```
 
-```{r Fig-ent, fig.align="center", message=FALSE, warning=FALSE, cache=T, echo =F, out.width = "550px"}
+```{r Fig-ent, fig.align="center", message=FALSE, warning=FALSE, cache=T, echo =F, out.width = "750px"}
 knitr::include_graphics("./_figs/entorno_de_trabajo.png")
 ```
 
