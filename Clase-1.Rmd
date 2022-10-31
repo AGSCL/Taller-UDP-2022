@@ -372,11 +372,11 @@ background-image: linear-gradient(45deg, #ABB0BF, #555555)
 <div class="yellow">- Editor de texto o códigos (ACTUALIZACION: Editor Visual Markdown)</div>
 <div class="green">- Lugar de trabajo (objetos creados, funciones, historial, control de versiones) (ACTUALIZACION: Se agregó Tutorial)</div>
 <div class="red">- Consola para desplegar los comandos y obtener resultados</div>
-<div class="blue">- Multitabla (gráficos, carpetas, paquetes, visor páginas web) (ACTUALIZACION: Se agregó "Presentation"</div>
+<div class="blue">- Multitabla (gráficos, carpetas, paquetes, visor páginas web) (ACTUALIZACION: Se agregó "Presentation")</div>
 
 ```{r Fig Entorno, fig.align="center", message=FALSE, warning=FALSE, cache=T, echo =F, out.width = "700px"}
 #knitr::include_graphics("./_figs/Entorno de Trabajo.PNG")
-image_colorize(image_read(path = "./_figs/Entorno de Trabajo.PNG"),15,"red")
+image_colorize(image_read(path = "./_figs/entorno_de_trabajo.PNG"),15,"red")
 ```
 
 ???
