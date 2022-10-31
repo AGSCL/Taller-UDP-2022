@@ -368,15 +368,15 @@ background-image: linear-gradient(45deg, #ABB0BF, #555555)
 ---
 ## Entorno/Espacio de Trabajo
 
-- Apriete `Cntrl + Alt + Shift 0`
+- Oprima `Cntrl + Alt + Shift 0`
 <div class="yellow">- Editor de texto o códigos (ACTUALIZACION: Editor Visual Markdown)</div>
 <div class="green">- Lugar de trabajo (objetos creados, funciones, historial, control de versiones) (ACTUALIZACION: Se agregó Tutorial)</div>
 <div class="red">- Consola para desplegar los comandos y obtener resultados</div>
-<div class="blue">- Multitabla (gráficos, carpetas, paquetes, visor páginas web)</div>
+<div class="blue">- Multitabla (gráficos, carpetas, paquetes, visor páginas web) (ACTUALIZACION: Se agregó "Presentation"</div>
 
 ```{r Fig Entorno, fig.align="center", message=FALSE, warning=FALSE, cache=T, echo =F, out.width = "700px"}
-#knitr::include_graphics("G:/Mi unidad/Alvacast/Curso/Entorno de Trabajo.PNG")
-knitr::include_graphics("./_figs/Entorno de Trabajo.PNG")
+#knitr::include_graphics("./_figs/Entorno de Trabajo.PNG")
+image_colorize(image_read(path = "./_figs/Entorno de Trabajo.PNG"),15,"red")
 ```
 
 ???
@@ -428,9 +428,11 @@ PROYECTOS: que agrupa/incorpora los distintos elementos de más abajo. Se recomi
 
 - `rm(list = ls())` si bien puede ser útil, no empieza un proceso de R totalmente limpio, sino que elimina objetos creados en el espacio de trabajo.
 
-- `renv()`, en un proyecto permite tener los paquetes de R actualizados hasta cierta fecha, junto con sus dependencias
+- `renv()`, en un proyecto permite tener los paquetes de R actualizados hasta cierta fecha, junto con sus dependencias (snapshot)
 
 - `rstudioapi::getSourceEditorContext()$path`, permite también tener una ubicación relativa de su proyecto.
+
+- `GitHub`, control de versiones, colaboración, etc.
 
 ```{r Fig r-script-tip, fig.align="center", message=FALSE, warning=FALSE, cache=T, echo =F, out.width = "350px"}
 knitr::include_graphics("./_figs/DQugFIWUEAErq0D.jpg")
@@ -481,6 +483,10 @@ PROYECTOS:
 
 - Este es un proyecto que tiene una serie de carpetas, que se conecta a Github (control de versiones), etc.
 - Esta es la estructura de datos que hay en su interior
+- Veamos qué contiene: hay un "american-medical-association-10th-edition.csl", para insertar un formato de referencias
+- Hay múltiples css para dar el estilo y diseño a la presentación y páginas en su interior
+- Estan los .RMDs y los .HTMLs
+- Carpetas: data, figs, output, style (ahí deberían ir los .css y todo lo que tiene relación con los temas, pero también van las fuentes de letra, etc.)
 
 ---
 ## Ejercicio 2
