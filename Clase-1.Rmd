@@ -375,9 +375,13 @@ background-image: linear-gradient(45deg, #ABB0BF, #555555)
 <div class="red">- Consola para desplegar los comandos y obtener resultados</div>
 <div class="blue">- Multitabla (gráficos, carpetas, paquetes, visor páginas web) (ACTUALIZACION: Se agregó "Presentation")</div>
 
-```{r Fig Entorno, fig.align="center", message=FALSE, warning=FALSE, cache=T, echo =F, out.width = "700px"}
+```{r Fig Entorno, fig.align="center", message=FALSE, warning=FALSE, cache=T, eval=F, echo =F, out.width = "700px"}
 #knitr::include_graphics("./_figs/Entorno de Trabajo.PNG")
 image_colorize(image_read(path = "https://github.com/AGSCL/Taller-UDP-2022/raw/main/_figs/entorno_de_trabajo.PNG"),15,"red")
+```
+
+```{r Fig-ent, fig.align="center", message=FALSE, warning=FALSE, cache=T, echo =F, out.width = "550px"}
+knitr::include_graphics("./_figs/entorno_de_trabajo.png")
 ```
 
 ???
