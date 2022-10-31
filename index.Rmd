@@ -7,7 +7,7 @@ source_url: true
 author:
   - name: González-Santa Cruz, A. 
     affiliation: |
-      CISS, Universidad Mayor, Chile. Metodologías Cuantitativas de Investigación, Carrera de Data Science, Universidad Mayor, Chile; 
+      CISS, Universidad Mayor, Chile; Investigador Joven, Núcleo Milenio nDP;
       Estudiante Doctorado en Salud Pública, Universidad de Chile
     orcid_id: 0000-0002-5166-9121
 output:
