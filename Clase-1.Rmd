@@ -458,6 +458,46 @@ PROYECTOS:
 - Uno ve cuándo actualiza RENV (sus paquetes etc). Aunque es medio inestable, creo que es una gran opción.
 - 
 
+
+---
+## Tips/Recomendaciones (2)
+
+**¿Cómo preguntar algo en R?**
+
+.pull_c[
+
+- Stackoverflow, twitter, grupos en R
+
+- `dput()` base de datos hipotética o real*
+
+- Markdown
+
+- Precisión
+
+]
+
+
+???
+*#_#_#_#_#_#_#_#_#_#_
+**NOTA**
+*#_#_#_#_#_#_#_#_#_#_
+
+- Siempre antes busque en español e inglés si su pregunta fue planteada anteriormente
+
+- Real siempre y cuando la desanonimice (`anonymizer`) o no sea la base de datos completa (filtre)
+
+- `dput(mtcars)`: permite exportar la estructura de la base de datos para quien le ayude sepa cómo se ordenan sus datos y eventuales dependencias o clases de valores. Si bien puede apoyarse con una imagen de sus datos, es recomendable que use dput()
+
+- Maneje algo de lenguaje markdown para hacer más entendible su pregunta
+
+- No aburra, sea preciso. 
+
+- Les dejo un ejemplo mío: https://stackoverflow.com/questions/63290366/mutate-across-multiple-variables-using-a-list-of-third-variables-in-r
+
+- Otro en español: https://es.stackoverflow.com/questions/566778/loop-sobre-varios-objetos-con-nombres-parcialmente-com%c3%ban
+
+
+
 ---
 ## Ejemplo
 

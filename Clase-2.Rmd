@@ -730,6 +730,37 @@ ggplot(ChickWeight, aes(Time, weight))+ #incluimos las 2 variables, una en el ej
 ---
 ## Ejercicio 3
 
+- Use `ggplot()` y especifique la base de datos `gapminder` como input, pero habiendo filtrado sólo los datos del 2007. (Debe instalar la librería gapminder antes de cargar los datos).
+
+- Agregue la capa `geom_point` al gráfico y cree un  diagrama de puntos (*scatterplot*) mostrando el producto interno bruto per-capita `gdpPercap` en el eje x y la esperanza de vida `lifeExp` en el eje y.
+
+- Use la estética color para indicar cada continente con un color diferente
+
+- Use la estética de tamaño para ajustar el tamaño de los puntos según el tamaño de la población
+
+- Use `scale_size_area()` para que el tamaño de los puntos refleje las diferencias de la población actual y configure el tamaño máximo de los puntos (`max_size`) de cada punto a 15.
+
+- Determine el nivel de opacidad/transparencia de cada punto a 70% mediante el parámetro `alpha` (no debe ser visible en las leyendas).
+
+.text_40[
+*(Quartango Blog, 2020, Julio 28, https://www.r-bloggers.com/2020/07/specify-additional-aesthetics-for-points/)*
+]
+
+???
+*#_#_#_#_#_#_#_#_#_#_
+**NOTA**
+*#_#_#_#_#_#_#_#_#_#_
+
+- respuesta:
+gapminder %>% dplyr::filter(year==2007) %>% 
+ggplot() + 
+  geom_point(aes(x = gdpPercap, y = lifeExp, size = pop,
+                 color = continent),alpha = 0.5)+ #sale de la leyenda si lo saca de estética.
+                 scale_size_area(max_size = 15)
+
+---
+## Ejercicio 4
+
 - Cargue la base de datos disponible desde https://github.com/pjcarozzi/riclpm/raw/main/documentos/data/elsoc_onoffline.Rdata, despliéguela (si quiere, lea una descripción de las variables en https://multivariada.netlify.app/assignment/11-code/ o de la fuente indicada en el programa sobre las variables de la encuesta). Las primeras columnas corresponden a las columnas C08_02 y C08_04 del estudio longitudinal ELSOC. Los números después de la w indican la ola de aplicación.
 
 - Hay una variable que es claramente continua. Genere un histograma con aprox. (sugerido) 30 quiebres
