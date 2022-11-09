@@ -381,7 +381,20 @@ image_colorize(image_read(path = "https://github.com/AGSCL/Taller-UDP-2022/raw/m
 ```
 
 ```{r Fig-ent, fig.align="center", message=FALSE, warning=FALSE, cache=T, echo =F, out.width = "750px"}
-knitr::include_graphics("./_figs/entorno_de_trabajo.png")
+
+# Now call back the plot
+background <- image_read("_figs/entorno_de_trabajo.png")
+# And bring in a logo
+logo_raw <- image_read("https://i.imgur.com/e1IneGq.jpg") 
+
+frames <- lapply(logo_raw, function(frame) {
+  image_composite(background, frame, offset = "+70+800")
+})
+
+animation <- image_animate(image_join(frames))
+animation
+
+#image_write(animation, "_figs/dir_Travolta.gif")
 ```
 
 ???
@@ -482,7 +495,7 @@ PROYECTOS:
 **NOTA**
 *#_#_#_#_#_#_#_#_#_#_
 
-- Siempre antes busque en español e inglés si su pregunta fue planteada anteriormente
+- Siempre antes busque en español e inglés si su pregunta fue planteada anteriormente (para que no la marquen como duplicada y reciba una mala calificación por flojo)
 
 - Real siempre y cuando la desanonimice (`anonymizer`) o no sea la base de datos completa (filtre)
 
@@ -496,7 +509,7 @@ PROYECTOS:
 
 - Otro en español: https://es.stackoverflow.com/questions/566778/loop-sobre-varios-objetos-con-nombres-parcialmente-com%c3%ban
 
-
+- **Otros tips**: Incluya tags o palabres clave; revise con un compañere antes de publicar, responda adecuadamente al recibir retroalimentación, revise redacción, aunque en el título sea pragmático. Sea agradecido (upvote)
 
 ---
 ## Ejemplo
@@ -661,7 +674,7 @@ https://cran.r-project.org/doc/contrib/R-intro-1.1.0-espanol.1.pdf
 
 - RStudio Support (2022, Octubre 16). Using RStudio Projects. https://support.rstudio.com/hc/en-us/articles/200526207-Using-Projects
 
-- 
+- Stackoverflow. How do I ask a good question?. https://stackoverflow.com/help/how-to-ask
 
 ```{r exp, eval=F,echo=F, results="asis"}
 library(pagedown)
