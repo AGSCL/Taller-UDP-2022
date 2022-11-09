@@ -369,6 +369,8 @@ knitr::include_graphics("./_figs/rstudioconf_ohi_hex.jpg")
 knitr::include_graphics("./_figs/pipe_vs_rest.png")
 ```
 
+[**Torpedo sobre ggplot*](https://res.cloudinary.com/dyd911kmh/image/upload/v1666806657/Marketing/Blog/ggplot2_cheat_sheet.pdf)
+
 ]
 
 ???
@@ -406,6 +408,10 @@ knitr::include_graphics("./_figs/pipe_vs_rest.png")
 *#_#_#_#_#_#_#_#_#_#_
 **NOTA**
 *#_#_#_#_#_#_#_#_#_#_
+
+-LOs gráficos se componen de datos, la información que se quiere visualizar y el mapeo (cómo se configura)
+- Los componentes del mapping: **capa** (elementos geométricos y transformaciones estadísticas), puntos líneas, y transformaciones como resumen (contar observaciones o dividir para un histograma), las **escalas** ubican los valores en los datos en un espacio estético (colores, forma o tamaño) y también dibujan la leyenda y los ejes, un **coord** que describe las coordenadas cartesianas pero también polares o proyecciones de mapas (latitud), una faceta permite generar y dividir en partes de datos (latticing), y un **tema** controla los despliegues como la fuente y el color de fondo.
+
 - `data= `, `geom_*`, `aes()`
 - **+** = añadir capas
 - **aes()**, lo que está fuera puede ser fijado (ej., tamaño= 1)
@@ -661,7 +667,7 @@ knitr::include_graphics('./_figs/descarga.png')
 *#_#_#_#_#_#_#_#_#_#_
 
 ---
-## Otros paquetes relacionados recomendados
+## Otros paquetes relacionados
 
 - `ggstatsplot`
 
@@ -669,18 +675,35 @@ knitr::include_graphics('./_figs/descarga.png')
 
 - `ggplotly`
 
+- `ggvis` 
+
+- [`esquise`](https://dreamrs.github.io/esquisse/)
+
+
+```{r, echo=FALSE,  fig.align="center", out.width=800, error=T}
+
+knitr::include_graphics('https://dreamrs.github.io/esquisse/reference/figures/esquisse.gif')
+
+```
+
+
 ???
 *#_#_#_#_#_#_#_#_#_#_
 **NOTA**
 *#_#_#_#_#_#_#_#_#_#_
 
----
-## Otros paquetes relacionados recomendados (2)
+- Hay otros que son más interactivos, otros con información estadísitca
 
-`r flipbookr::chunk_reveal("my_cars")`
+(https://rpubs.com/agscl/plot)
+(https://rpubs.com/agscl/com_quar)
+
+---
+## Ejercicio demostrativo
+
+`r flipbookr::chunk_reveal("ej_dem")`
 
 .details-code[
-```{r my_cars, eval=T, message=FALSE, warning=FALSE, include=T}
+```{r ej_dem, eval=T, message=FALSE, warning=FALSE, include=T}
 starwars %>% 
 ggplot2::ggplot() +
   geom_point(aes(x = birth_year, 
