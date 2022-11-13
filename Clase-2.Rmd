@@ -528,6 +528,8 @@ ggplot2::ggsave("./_figs/1.png", width = 5, height = 10, dpi = 100)
 
 - Orden de los datos
 
+- Citar fuentes (con caption)
+
 
 Ejemplos:
 

@@ -511,6 +511,49 @@ PROYECTOS:
 
 - **Otros tips**: Incluya tags o palabres clave; revise con un compañere antes de publicar, responda adecuadamente al recibir retroalimentación, revise redacción, aunque en el título sea pragmático. Sea agradecido (upvote)
 
+
+---
+## Tips/Recomendaciones (3)
+
+**Cursos**
+
+- DataCamp. Por ejemplo, Introduction to R (https://www.datacamp.com/courses/free-introduction-to-r)
+
+- Si usted quiere tener una prueba gratis de DataCamp, más allá de completar el primer capítulo de un curso (https://www.datacamp.com/blog/how-to-get-10-years-of-free-datacamp-if-youre-a-teacher-or-student)
+
+- Statistics With Interactive R Learning(SWIRL): The easiest and the most interactive way to start learning R (https://swirlstats.com/students.html) [Youtube](https://youtu.be/w6L7Ye18yPE).
+
+- edX. Por ejemplo, Dat Science: R Basics (https://www.edx.org/es/course/data-science-r-basics), o Introduction to R for Data Science (https://www.edx.org/es/course/introduction-to-r-for-data-science-2).
+
+- YouTube. Por ejemplo, Estadística Útil (https://www.youtube.com/watch?v=rzw1E6HxBFY&list=PLfX5C7cc6LRJ7V6WNgatRQJ6PNMrb4zfM) Riffomonas Project  (https://www.youtube.com/c/RiffomonasProject), Population Data BC (https://www.youtube.com/channel/UCavuC5RfLRUv_8XZxYDR0FA), Econometrics, Causality, and Coding with Dr. HK (https://www.youtube.com/c/NickHuntingtonKlein), Sacha Epskamp (https://www.youtube.com/c/SachaEpskamp1), Paul Dickman (https://www.youtube.com/channel/UC0IZswgRCFX3FYagJ_-ODTg), NHSR Community (https://www.youtube.com/c/NHSRCommunity) Online Causal Inference Seminar (https://www.youtube.com/channel/UCiiOj5GSES6uw21kfXnxj3A)
+
+- Estación Lastarria (https://www.estacionlastarria.cl/actividades/rstudio/rstudio-ciencias-sociales.html)
+
+- Centro de Microdatos UChile (https://www.microdatos.cl/analisis-datos-r)
+
+- Introduction to R (https://www.quantargo.com/courses/course-r-introduction/)
+
+**Comunidades**
+
+-  R-Ladies (https://twitter.com/rladiessantiago)
+
+- StackOverflow (https://es.stackoverflow.com/). Por ejemplo, Testeo de modelo lineal en R (https://es.stackoverflow.com/questions/331075/testeo-de-modelo-lineal-en-r)
+
+- UseRChile Usuarios de R en Chile (https://userchile.cl/)
+
+**Otros**
+
+- learnr (Etiqueta “Tutorial”)
+
+- CheatSheets. https://rstudio.com/resources/cheatsheets/
+
+- Memes
+
+- Twitter, Pachá (@pachamaltese) y Hadley Wickham (@hadleywickham)
+
+- Rpubs. Páginas alojadas que permiten ver cómo cada persona obtuvo un determinado producto a partir de un código
+
+
 ---
 ## Ejemplo
 
