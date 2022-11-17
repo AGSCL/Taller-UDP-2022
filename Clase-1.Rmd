@@ -337,6 +337,124 @@ knitr::include_graphics('./_style/cropped-logotipo_fsch.png')
 layout: true
 class: animated, fadeIn
 ---
+## Resumen
+
+.pull_left[
+
+.details-code[
+
+```{r a, fig.align="center", message=FALSE, warning=FALSE, cache=T, eval=T, echo =T, out.width = "300px"}
+library(readr)
+encuesta_wide <- readr::read_delim("https://docs.google.com/spreadsheets/d/1ROw6KWDljm8vqpztgPLq_kEFW9PfsiYzzvgaiCGRYcA/export?format=tsv&id=1ROw6KWDljm8vqpztgPLq_kEFW9PfsiYzzvgaiCGRYcA&gid=2018030198", 
+    delim = "\t", escape_double = FALSE, 
+    trim_ws = TRUE) %>% 
+  #cuento cuantas veces aparece
+    dplyr::group_by(question_id) %>% 
+  #genero una columna ID
+    dplyr::mutate(ID=dplyr::row_number()) %>% 
+  #guardamos la base original por si necesitamos despues revisarla
+    assign("encuesta",.,envir = .GlobalEnv) %>%
+  #dejo los datos en un formato ancho, en que cada ingreso de formulario (ID) es una fila, y conservamos la fila de preguntas.
+    tidyr::pivot_wider(id_cols=c(ID), names_from= question_id, values_from= response) %>% 
+  #en caso que alguien haya enviado más de una vez, me quedo con el último
+  dplyr::ungroup() %>% 
+  dplyr::group_by(a) %>% 
+  dplyr::slice_tail() %>% 
+  dplyr::ungroup() 
+
+  #Etiquetas
+  for (i in 1:length(unique(encuesta$PREGUNTAS))) {
+    x<-i+1
+  attributes(encuesta_wide)$variable.labels[x]<-  unique(encuesta$PREGUNTAS)[i]
+  }
+
+encuesta_wide %>% 
+  dplyr::select(a) %>% 
+  dplyr::ungroup() %>% 
+  knitr::kable("markdown", caption="a.¿Cuál es su nombre completo?")
+```
+]
+
+.details-code[
+
+```{r b, fig.align="center", message=FALSE, warning=FALSE, cache=T, eval=T, echo =T, out.width = "300px"}
+encuesta_wide %>%
+    ggplot(aes(x=as.numeric(b)))+
+    geom_histogram(bins=50)+
+  ggtitle("Distribución años de experiencia usando R")+
+  xlab("Años de experiencia en R")+ylab("Recuento")+
+  theme_light(base_size=15)
+```
+]
+]
+
+.pull_right[
+.details-code[
+
+```{r d, fig.align="center", message=FALSE, warning=FALSE, cache=T, eval=T, echo =T, out.width = "350px"}
+#[4] "d.¿Cuáles son sus expectativas del taller?"
+#[5] "e.¿Qué aspecto de los contenidos le interesó más?"  
+if(!require(tidytext)){install.packages("tidytext")}
+if(!require(wordcloud)){install.packages("wordcloud")}
+#if(!require(sentiment.ai)){install.packages("sentiment.ai")}
+if(!require(SentimentAnalysis)){install.packages("SentimentAnalysis")}
+if(!require(sentimentr)){install.packages("sentimentr")}
+if(!require(tidytext)){install.packages("tidytext")}
+if(!require(tm)){install.packages("tm")}
+
+corpus <- Corpus(VectorSource(encuesta_wide$d)) #
+
+d  <- tm_map(corpus, tolower)
+d  <- tm_map(d, stripWhitespace)
+d <- tm_map(d, removePunctuation)
+d <- tm_map(d, removeNumbers)
+d <- tm_map(d, removeWords, stopwords("spanish"))
+d <- tm_map(d, removeWords, "menos")
+#d <- tm_map(d, removeWords, c("usted", "pues", "tal", "tan", "así", "dijo", "cómo", "sino", "entonces", "aunque", "don", "doña","hacia","mayor","algún","cada","tambien","ello","mostrara","sólo", "ser","tener","manera","actualmente","mejor","casos","trabajo","parte","contar",""))
+tdm <- TermDocumentMatrix(d)
+m <- as.matrix(tdm) #lo vuelve una matriz
+v <- sort(rowSums(m),decreasing=TRUE) #lo ordena y suma
+df <- data.frame(word = names(v),freq=v) # lo nombra y le da formato de data.frame
+#findFreqTerms(tdm)
+#
+#https://rpubs.com/brandonkopp/creating-word-clouds-in-r
+wordcloud::wordcloud(words = df$word, freq = df$freq, min.freq=1,
+          max.words=200, random.order=FALSE, rot.per=0.35, 
+          colors=brewer.pal(8, "Greys"))
+```
+]
+
+
+.details-code[
+
+```{r e, fig.align="center", message=FALSE, warning=FALSE, cache=T, eval=T, echo =T, out.width = "300px"}
+if(!require(plotly)){install.packages("plotly")}
+
+data.frame(e=encuesta_wide$e) %>%
+     dplyr::count(e) %>% 
+    dplyr::mutate(valid_percent=scales::percent(n/(sum(n)-sum(n[is.na(e)])),2),
+                  valid_percent=ifelse(is.na(n),NA,valid_percent),
+                  percent=scales::percent(n/(sum(n)),2))%>% 
+  dplyr::mutate(label=paste0(n,"<br>(",valid_percent,")")) %>% 
+  dplyr::ungroup()%>%
+  dplyr::filter(!is.na(n)) %>% 
+plot_ly( labels = ~e, values = ~n, type = 'pie',hole = 0.3,
+      textposition = 'outside',
+      textinfo = 'text',
+      text = ~label, 
+      automargin = TRUE,
+      sort = FALSE,
+      direction = "clockwise",
+      textfont = list(size = 15),
+      marker = list(colors = c(gray.colors(length(unique(encuesta_wide$e))-1), "#FF5252")))%>%
+  layout(yaxis = list(showgrid = FALSE, zeroline = FALSE, showticklabels = T)) %>% 
+  layout(showlegend = FALSE, width=350, height=350) %>% 
+  layout(showlegend = FALSE) 
+```
+]
+]
+
+---
 ## Índice
 
 - Proyectos en R: Configurarlo, guardar conjuntos de datos, lógica de directorio, convenciones y buenas prácticas para guardar y abrir datos, códigos, referencias, salidas de código, figuras, etc.
