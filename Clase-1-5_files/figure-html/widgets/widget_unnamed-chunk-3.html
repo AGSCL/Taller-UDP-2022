@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8"/>
+<style>body{background-color:white;}</style>
+<script src="grViz_libs/htmlwidgets-1.5.4/htmlwidgets.js"></script>
+<script src="grViz_libs/viz-1.8.2/viz.js"></script>
+<link href="grViz_libs/DiagrammeR-styles-0.2/styles.css" rel="stylesheet" />
+<script src="grViz_libs/grViz-binding-1.0.9/grViz.js"></script>
+<script src="grViz_libs/pymjs-1.3.2/pym.v1.min.js"></script>
+  <title>grViz</title>
+</head>
+<body>
+<div id="htmlwidget_container">
+  <div id="htmlwidget-2a4c662dc7528607462f" style="width:100%;height:400px;" class="grViz html-widget"></div>
+  <script>HTMLWidgets.pymChild = new pym.Child();HTMLWidgets.addPostRenderHandler(function(){
+                                setTimeout(function(){HTMLWidgets.pymChild.sendHeight();},100);
+                            });</script>
+</div>
+<script type="application/json" data-for="htmlwidget-2a4c662dc7528607462f">{"x":{"diagram":"\ndigraph causal {\n  # Nodes\n  node [shape = plaintext]\n  a [label = \"Variable\",fontsize=10]\n  b [label = \"Cualitativa o atributo\n(Nombradas)\",fontsize=10]\n  c [label = \"Cuantitativa o numérica\n(Puntuaciones)\",fontsize=10]\n  d [label = \"Nominal\n(No clasificada)\",fontsize=10]\n  e [label = \"Ordinal\n(Clasificada)*\",fontsize=10]\n  f [label = \"Discreta\",fontsize=10]\n  g [label = \"Continua\",fontsize=10]\n  # Edges\n  edge [color = black,\n        arrowhead = vee]\n  a -> b      \n  a -> c      \n  b -> d\n  b -> e\n  c -> f\n  c -> g\n  rankdir = TB\n{ rank = same; b; c}\n  rankdir = LR\n{ rank = same; d; e; f; g }\n  # Graph\n  graph [overlap = true]\n}","config":{"engine":"dot","options":null}},"evals":[],"jsHooks":[]}</script>
+<script type="application/htmlwidget-sizing" data-for="htmlwidget-2a4c662dc7528607462f">{"viewer":{"width":"100%","height":400,"padding":0,"fill":false},"browser":{"width":"100%","height":400,"padding":0,"fill":false}}</script>
+</body>
+</html>

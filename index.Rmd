@@ -40,4 +40,6 @@ Esta página está compuesta de los siguientes tópicos:
 
 - **Clase 1: Entornos en R** [aquí](Clase-1.html)
 
+- **Clase 1.5: Nivelación** [aquí](Clase-1-5.html)
+
 - **Clase 2: Gráficos** [aquí](Clase-2.html)
