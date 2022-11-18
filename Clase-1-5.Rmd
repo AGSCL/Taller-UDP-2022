@@ -962,6 +962,8 @@ paste0("Simón dice", ", \'", objeto,"\'")
 ---
 ## Fuentes
 
+- French, T. (2022, Noviembre 17), Data Types in R. [enlace](https://www.r-bloggers.com/2022/11/data-types-in-r-3/?utm_source=phpList&utm_medium=email&utm_campaign=R-bloggers-daily&utm_content=HTML)
+
 - Hansen, M., Nolan, D. & Temple, D. (2008). Introduction to the R Language: Functions. Workshop: Integrating Computing into the Statistics Curricula. U.C. Berkeley.[Enlace](https://www.stat.berkeley.edu/~statcur/Workshop2/Presentations/functions.pdf)
 
 - Wickham, H. & Grolemund, G. Proyecto de traducción colaborativa de "R para Ciencia de Datos". [https://es.r4ds.hadley.nz/](https://es.r4ds.hadley.nz/)
